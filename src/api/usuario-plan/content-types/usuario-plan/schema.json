@@ -1,0 +1,31 @@
+{
+  "kind": "collectionType",
+  "collectionName": "usuario_plans",
+  "info": {
+    "singularName": "usuario-plan",
+    "pluralName": "usuario-plans",
+    "displayName": "UsuarioPlan",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "usuario": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "plan": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::plan.plan"
+    },
+    "ultima_factura": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::invoice.invoice"
+    }
+  }
+}

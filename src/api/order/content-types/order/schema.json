@@ -1,0 +1,62 @@
+{
+  "kind": "collectionType",
+  "collectionName": "orders",
+  "info": {
+    "singularName": "order",
+    "pluralName": "orders",
+    "displayName": "Ordenes",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "productos": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::orden-stock.orden-stock"
+    },
+    "tienda": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::shop.shop"
+    },
+    "nombres": {
+      "type": "string",
+      "required": true
+    },
+    "apellidos": {
+      "type": "string",
+      "required": true
+    },
+    "CI": {
+      "type": "string",
+      "required": true
+    },
+    "pais": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::country.country"
+    },
+    "estado_orden": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::estado-orden.estado-orden"
+    },
+    "localidad": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::locality.locality"
+    },
+    "estado": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::state.state"
+    },
+    "numero_orden": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

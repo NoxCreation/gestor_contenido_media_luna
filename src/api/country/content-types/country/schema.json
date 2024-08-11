@@ -1,0 +1,24 @@
+{
+  "kind": "collectionType",
+  "collectionName": "countries",
+  "info": {
+    "singularName": "country",
+    "pluralName": "countries",
+    "displayName": "Paises",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nombre": {
+      "type": "string"
+    },
+    "estados": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::state.state"
+    }
+  }
+}

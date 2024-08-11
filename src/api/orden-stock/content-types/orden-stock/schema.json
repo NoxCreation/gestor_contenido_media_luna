@@ -1,0 +1,26 @@
+{
+  "kind": "collectionType",
+  "collectionName": "orden_stocks",
+  "info": {
+    "singularName": "orden-stock",
+    "pluralName": "orden-stocks",
+    "displayName": "OrdenStock"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "stock": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::stock.stock"
+    },
+    "enabled": {
+      "type": "boolean"
+    },
+    "cantidad": {
+      "type": "integer"
+    }
+  }
+}

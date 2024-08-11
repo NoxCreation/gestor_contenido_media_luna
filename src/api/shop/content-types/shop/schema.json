@@ -1,0 +1,92 @@
+{
+  "kind": "collectionType",
+  "collectionName": "shops",
+  "info": {
+    "singularName": "shop",
+    "pluralName": "shops",
+    "displayName": "Tiendas",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nombre": {
+      "type": "string",
+      "unique": true,
+      "required": true
+    },
+    "descripcion": {
+      "type": "text",
+      "required": true
+    },
+    "usuario": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "pais": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::country.country"
+    },
+    "banner": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "logo": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "clasificacion_tiendas": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::classification-store.classification-store"
+    },
+    "whatsapp_contact": {
+      "type": "string",
+      "unique": true
+    },
+    "telegram_contact": {
+      "type": "string",
+      "unique": true
+    },
+    "instagram_contact": {
+      "type": "string",
+      "unique": true
+    },
+    "x_contact": {
+      "type": "string",
+      "unique": true
+    },
+    "phone_contact": {
+      "type": "string",
+      "unique": true
+    },
+    "site_contact": {
+      "type": "string",
+      "unique": true
+    },
+    "email_contact": {
+      "type": "string",
+      "unique": true
+    },
+    "productos": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::stock.stock"
+    },
+    "color_primario": {
+      "type": "string"
+    }
+  }
+}

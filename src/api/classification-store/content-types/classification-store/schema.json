@@ -1,0 +1,18 @@
+{
+  "kind": "collectionType",
+  "collectionName": "classification_stores",
+  "info": {
+    "singularName": "classification-store",
+    "pluralName": "classification-stores",
+    "displayName": "ClasificacionTienda"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nombre": {
+      "type": "string"
+    }
+  }
+}

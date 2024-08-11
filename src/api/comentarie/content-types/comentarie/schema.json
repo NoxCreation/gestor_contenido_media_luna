@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "comentaries",
+  "info": {
+    "singularName": "comentarie",
+    "pluralName": "comentaries",
+    "displayName": "Comentarios",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "descripcion": {
+      "type": "text",
+      "required": true
+    },
+    "usuario": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "valoracion": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::valoracion.valoracion"
+    }
+  }
+}

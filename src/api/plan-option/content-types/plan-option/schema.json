@@ -1,0 +1,33 @@
+{
+  "kind": "collectionType",
+  "collectionName": "plan_options",
+  "info": {
+    "singularName": "plan-option",
+    "pluralName": "plan-options",
+    "displayName": "PlanOpciones",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nombre": {
+      "type": "string",
+      "required": true
+    },
+    "slug_id": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "icono": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": true,
+      "required": true
+    }
+  }
+}

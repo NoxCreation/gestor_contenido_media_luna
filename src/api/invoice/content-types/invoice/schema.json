@@ -1,0 +1,33 @@
+{
+  "kind": "collectionType",
+  "collectionName": "invoices",
+  "info": {
+    "singularName": "invoice",
+    "pluralName": "invoices",
+    "displayName": "Facturas",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "fecha_pago": {
+      "type": "datetime",
+      "required": true
+    },
+    "pagado": {
+      "type": "decimal",
+      "required": true
+    },
+    "usuario": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "fecha_expiracion": {
+      "type": "datetime",
+      "required": true
+    }
+  }
+}

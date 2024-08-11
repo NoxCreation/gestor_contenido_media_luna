@@ -1,0 +1,32 @@
+{
+  "kind": "collectionType",
+  "collectionName": "estado_ordens",
+  "info": {
+    "singularName": "estado-orden",
+    "pluralName": "estado-ordens",
+    "displayName": "EstadoOrden"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nombre": {
+      "type": "string",
+      "required": true
+    },
+    "descripcion": {
+      "type": "text",
+      "required": true
+    },
+    "color": {
+      "type": "string",
+      "required": true
+    },
+    "tienda": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::shop.shop"
+    }
+  }
+}

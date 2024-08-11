@@ -1,0 +1,39 @@
+{
+  "name": "gestor_contenido",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Gestor de contenido Media Luna Marketplace",
+  "scripts": {
+    "dev": "strapi develop",
+    "start": "strapi start",
+    "build": "strapi build",
+    "strapi": "strapi"
+  },
+  "workspaces": [
+    "./src/plugins/strapi-plugin-ckeditor"
+  ],
+  "dependencies": {
+    "@strapi/plugin-cloud": "4.24.2",
+    "@strapi/plugin-graphql": "^4.24.2",
+    "@strapi/plugin-i18n": "4.24.2",
+    "@strapi/plugin-users-permissions": "4.24.2",
+    "@strapi/strapi": "4.24.2",
+    "better-sqlite3": "8.6.0",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "react-router-dom": "5.3.4",
+    "styled-components": "5.3.3"
+  },
+  "author": {
+    "name": "NOX Creation"
+  },
+  "strapi": {
+    "uuid": "095d2626-a374-45cd-a944-22648b677c5d"
+  },
+  "engines": {
+    "node": ">=18.0.0 <=20.x.x",
+    "npm": ">=6.0.0"
+  },
+  "license": "MIT",
+  "packageManager": "yarn@4.3.1+sha512.af78262d7d125afbfeed740602ace8c5e4405cd7f4735c08feb327286b2fdb2390fbca01589bfd1f50b1240548b74806767f5a063c94b67e431aabd0d86f7774"
+}
