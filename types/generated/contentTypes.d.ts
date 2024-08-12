@@ -1302,7 +1302,6 @@ export interface ApiStockStock extends Schema.CollectionType {
   };
   attributes: {
     nombre: Attribute.String & Attribute.Required;
-    descripcion: Attribute.RichText;
     foto1: Attribute.Media & Attribute.Required;
     precio: Attribute.Decimal & Attribute.Required;
     clasificacion_productos: Attribute.Relation<
@@ -1319,6 +1318,15 @@ export interface ApiStockStock extends Schema.CollectionType {
     foto3: Attribute.Media & Attribute.Required;
     foto4: Attribute.Media & Attribute.Required;
     cantidad: Attribute.Integer;
+    descripcion: Attribute.RichText &
+      Attribute.Required &
+      Attribute.CustomField<
+        'plugin::ckeditor.CKEditor',
+        {
+          output: 'HTML';
+          preset: 'light';
+        }
+      >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

@@ -17,9 +17,6 @@
       "unique": false,
       "required": true
     },
-    "descripcion": {
-      "type": "richtext"
-    },
     "foto1": {
       "type": "media",
       "multiple": false,
@@ -43,31 +40,40 @@
       "target": "api::comentarie.comentarie"
     },
     "foto2": {
-      "allowedTypes": [
-        "images"
-      ],
       "type": "media",
       "multiple": false,
-      "required": true
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
     },
     "foto3": {
-      "allowedTypes": [
-        "images"
-      ],
       "type": "media",
       "multiple": false,
-      "required": true
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
     },
     "foto4": {
-      "allowedTypes": [
-        "images"
-      ],
       "type": "media",
       "multiple": false,
-      "required": true
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
     },
     "cantidad": {
       "type": "integer"
+    },
+    "descripcion": {
+      "type": "customField",
+      "options": {
+        "output": "HTML",
+        "preset": "light"
+      },
+      "required": true,
+      "customField": "plugin::ckeditor.CKEditor"
     }
   }
 }
