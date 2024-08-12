@@ -13,6 +13,7 @@
     "./src/plugins/strapi-plugin-ckeditor"
   ],
   "dependencies": {
+    "@creazy231/strapi-plugin-apollo-sandbox": "^0.0.15",
     "@strapi/plugin-cloud": "4.24.2",
     "@strapi/plugin-graphql": "^4.24.2",
     "@strapi/plugin-i18n": "4.24.2",
