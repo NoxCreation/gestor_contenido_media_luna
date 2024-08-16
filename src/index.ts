@@ -1,11 +1,52 @@
+const { sanitize } = require("@strapi/utils");
 export default {
   /**
    * An asynchronous register function that runs before
    * your application is initialized.
    *
    * This gives you an opportunity to extend code.
+   *
    */
-  register(/*{ strapi }*/) { },
+
+  register({ strapi }) {
+    const extensionService = strapi.plugin("graphql").service("extension");
+
+    const { service: getService } = strapi.plugin("graphql");
+    const { transformArgs } = getService("builders").utils;
+    const { toEntityResponse } = getService("format").returnTypes;
+
+    extensionService.use(({ nexus }) => {
+      const avgStocksQuery = nexus.extendType({
+        type: "Query",
+        definition(t) {
+          t.field("stocks", {
+            type: nexus.nonNull(nexus.list("StockEntityResponse")), // Cambia según tu tipo de respuesta
+            args: {
+              sort: nexus.stringArg(),
+              pagination: nexus.arg({
+                type: "PaginationArg",
+              }),
+            },
+            resolve: async (parent, args, context) => {
+              const { sort, pagination } = args;
+              // Llama al controller base para obtener los datos originales
+              const response = await strapi
+                .controller("api::stock.stock")
+                .find({ query: { sort, pagination } });
+              console.log(response);
+
+              // Calcula el promedio de las valoraciones
+
+              // Retorna la respuesta con el promedio
+              return response.data.map((stock) => toEntityResponse(stock)); // Map over each stock entity
+            },
+          });
+        },
+      });
+
+      return { types: [avgStocksQuery] };
+    });
+  },
 
   /**
    * An asynchronous bootstrap function that runs before
@@ -56,5 +97,5 @@ export default {
         });
       });
     }); */
-  }
+  },
 };
