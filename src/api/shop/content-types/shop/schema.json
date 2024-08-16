@@ -49,8 +49,9 @@
     },
     "clasificacion_tiendas": {
       "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::classification-store.classification-store"
+      "relation": "manyToMany",
+      "target": "api::classification-store.classification-store",
+      "inversedBy": "tiendas"
     },
     "whatsapp_contact": {
       "type": "string",
@@ -83,10 +84,16 @@
     "productos": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::stock.stock"
+      "target": "api::stock.stock",
+      "mappedBy": "tienda"
     },
     "color_primario": {
       "type": "string"
+    },
+    "estados": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::state.state"
     }
   }
 }

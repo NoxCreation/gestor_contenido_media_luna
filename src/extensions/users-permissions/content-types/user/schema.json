@@ -65,6 +65,12 @@
       "target": "plugin::users-permissions.role",
       "inversedBy": "users",
       "configurable": false
+    },
+    "usuario_plans": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::usuario-plan.usuario-plan",
+      "mappedBy": "usuario"
     }
   }
 }

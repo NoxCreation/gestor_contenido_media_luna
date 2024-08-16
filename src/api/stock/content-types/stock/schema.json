@@ -37,7 +37,8 @@
     "comentarios": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::comentarie.comentarie"
+      "target": "api::comentarie.comentarie",
+      "mappedBy": "stock"
     },
     "foto2": {
       "type": "media",
@@ -74,6 +75,18 @@
       },
       "required": true,
       "customField": "plugin::ckeditor.CKEditor"
+    },
+    "tienda": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::shop.shop",
+      "inversedBy": "productos"
+    },
+    "descuento_porciento": {
+      "type": "integer"
+    },
+    "promedioValoracion": {
+      "type": "decimal"
     }
   }
 }
