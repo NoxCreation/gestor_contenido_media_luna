@@ -1345,6 +1345,16 @@ export interface ApiStockStock extends Schema.CollectionType {
     >;
     descuento_porciento: Attribute.Integer;
     promedioValoracion: Attribute.Decimal;
+    pais: Attribute.Relation<
+      'api::stock.stock',
+      'oneToOne',
+      'api::country.country'
+    >;
+    estado: Attribute.Relation<
+      'api::stock.stock',
+      'oneToOne',
+      'api::state.state'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

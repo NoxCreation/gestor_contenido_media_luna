@@ -87,6 +87,16 @@
     },
     "promedioValoracion": {
       "type": "decimal"
+    },
+    "pais": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::country.country"
+    },
+    "estado": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::state.state"
     }
   }
 }
