@@ -7,10 +7,8 @@ export default {
    * This gives you an opportunity to extend code.
    *
    */
-
   register({ strapi }) {
     const extensionService = strapi.plugin("graphql").service("extension");
-
     const { service: getService } = strapi.plugin("graphql");
     const { transformArgs } = getService("builders").utils;
     const { toEntityResponse } = getService("format").returnTypes;
@@ -20,25 +18,43 @@ export default {
         type: "Query",
         definition(t) {
           t.field("stocks", {
-            type: nexus.nonNull(nexus.list("StockEntityResponse")), // Cambia según tu tipo de respuesta
+            type: nexus.nonNull(nexus.list("StockEntityResponse")),
             args: {
-              sort: nexus.stringArg(),
+              sort: nexus.list(nexus.stringArg()), // Definido como un array de strings
               pagination: nexus.arg({
                 type: "PaginationArg",
               }),
+              filters: nexus.arg({
+                type: "StockFiltersInput",
+              }),
             },
             resolve: async (parent, args, context) => {
-              const { sort, pagination } = args;
-              // Llama al controller base para obtener los datos originales
-              const response = await strapi
-                .controller("api::stock.stock")
-                .find({ query: { sort, pagination } });
-              console.log(response);
+              const { auth } = context.state;
+              const contentTypeName = "api::stock.stock"; // Cambia esto si es necesario
+              const contentType = strapi.contentTypes[contentTypeName];
+              const { uid } = contentType;
 
-              // Calcula el promedio de las valoraciones
+              // Transforma los argumentos
+              const transformedArgs = transformArgs(args, { contentType });
+
+              // Llama al servicio para obtener los stocks con el promedio de valoraciones
+              const stocksWithAverageRating = await strapi
+                .service("api::stock.stock")
+                .findWithAverageRating({
+                  ...transformedArgs,
+                  // Asegúrate de incluir el sort aquí
+                  sort: transformedArgs.sort,
+                });
 
               // Retorna la respuesta con el promedio
-              return response.data.map((stock) => toEntityResponse(stock)); // Map over each stock entity
+              return stocksWithAverageRating.map((stock) =>
+                toEntityResponse(stock, { resourceUID: uid })
+              );
+            },
+            resolversConfig: {
+              "Query.newStocks": {
+                auth: false,
+              },
             },
           });
         },
