@@ -11,16 +11,17 @@ export default {
     const extensionService = strapi.plugin("graphql").service("extension");
     const { service: getService } = strapi.plugin("graphql");
     const { transformArgs } = getService("builders").utils;
-    const { toEntityResponse } = getService("format").returnTypes;
+    const { toEntityResponse, toEntityResponseCollection } =
+      getService("format").returnTypes;
 
     extensionService.use(({ nexus }) => {
       const avgStocksQuery = nexus.extendType({
         type: "Query",
         definition(t) {
           t.field("stocks", {
-            type: nexus.nonNull(nexus.list("StockEntityResponse")),
+            type: "StockEntityResponseCollection",
             args: {
-              sort: nexus.list(nexus.stringArg()), // Definido como un array de strings
+              sort: nexus.stringArg(), // Definido como un array de strings
               pagination: nexus.arg({
                 type: "PaginationArg",
               }),
@@ -35,31 +36,64 @@ export default {
               const { uid } = contentType;
 
               // Transforma los argumentos
-              const transformedArgs = transformArgs(args, { contentType });
+              const transformedArgs = transformArgs(args, {
+                contentType,
+                usePagination: true,
+              });
+              console.log(args);
 
               // Llama al servicio para obtener los stocks con el promedio de valoraciones
-              const stocksWithAverageRating = await strapi
-                .service("api::stock.stock")
-                .findWithAverageRating({
+              const stocks = await strapi.entityService.findMany(
+                "api::stock.stock",
+                {
+                  populate: ["comentarios"],
                   ...transformedArgs,
-                  // Asegúrate de incluir el sort aquí
-                  sort: transformedArgs.sort,
-                });
-
-              // Retorna la respuesta con el promedio
-              return stocksWithAverageRating.map((stock) =>
-                toEntityResponse(stock, { resourceUID: uid })
+                }
               );
-            },
-            resolversConfig: {
-              "Query.newStocks": {
-                auth: false,
-              },
+
+              // Calcula el promedio de las valoraciones
+              const stocksWithAverageRating = await Promise.all(
+                stocks.map(async (stock) => {
+                  const comentarios = stock.comentarios || [];
+
+                  if (comentarios.length === 0) {
+                    stock.promedioValoracion = null; // No hay comentarios
+                    return stock;
+                  }
+
+                  const totalValoraciones = comentarios.reduce(
+                    (acc, comentario) => {
+                      return acc + comentario.valoracion;
+                    },
+                    0
+                  );
+
+                  const promedioValoracion =
+                    totalValoraciones / comentarios.length;
+                  stock.promedioValoracion = promedioValoracion;
+
+                  return stock;
+                })
+              );
+              const data = stocksWithAverageRating.map((stock) =>
+                toEntityResponse(
+                  { ...stock },
+                  {
+                    resourceUID: uid,
+                    args: {
+                      ...transformedArgs,
+                    },
+                  }
+                )
+              );
+              return toEntityResponseCollection(stocksWithAverageRating, {
+                args: { ...transformedArgs },
+                resourceUID: "api::stock.stock",
+              });
             },
           });
         },
       });
-
       return { types: [avgStocksQuery] };
     });
   },
