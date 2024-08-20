@@ -1355,6 +1355,7 @@ export interface ApiStockStock extends Schema.CollectionType {
       'oneToOne',
       'api::state.state'
     >;
+    cantidadValoraciones: Attribute.Integer;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

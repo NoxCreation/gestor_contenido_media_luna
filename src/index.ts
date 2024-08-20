@@ -71,6 +71,7 @@ export default {
                   const promedioValoracion =
                     totalValoraciones / comentarios.length;
                   stock.promedioValoracion = promedioValoracion;
+                  stock.cantidadValoraciones = comentarios.length;
 
                   return stock;
                 })
