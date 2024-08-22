@@ -19,7 +19,8 @@
     "opciones": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::plan-option.plan-option"
+      "target": "api::plan-option.plan-option",
+      "mappedBy": "plane"
     }
   }
 }

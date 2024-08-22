@@ -18,7 +18,8 @@
     "estados": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::state.state"
+      "target": "api::state.state",
+      "mappedBy": "paise"
     }
   }
 }

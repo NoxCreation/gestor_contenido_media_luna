@@ -94,6 +94,16 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::state.state"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "nombre"
+    },
+    "precio_maximo": {
+      "type": "decimal"
+    },
+    "precio_minimo": {
+      "type": "decimal"
     }
   }
 }

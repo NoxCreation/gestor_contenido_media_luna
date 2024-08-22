@@ -807,6 +807,11 @@ export interface ApiClasificationProductClasificationProduct
   };
   attributes: {
     nombre: Attribute.String;
+    stocks: Attribute.Relation<
+      'api::clasification-product.clasification-product',
+      'manyToMany',
+      'api::stock.stock'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1026,6 +1031,11 @@ export interface ApiLocalityLocality extends Schema.CollectionType {
   };
   attributes: {
     nombre: Attribute.String;
+    estado: Attribute.Relation<
+      'api::locality.locality',
+      'manyToOne',
+      'api::state.state'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1187,6 +1197,11 @@ export interface ApiPlanOptionPlanOption extends Schema.CollectionType {
     nombre: Attribute.String & Attribute.Required;
     slug_id: Attribute.String & Attribute.Required & Attribute.Unique;
     icono: Attribute.Media & Attribute.Required;
+    plane: Attribute.Relation<
+      'api::plan-option.plan-option',
+      'manyToOne',
+      'api::plan.plan'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1254,6 +1269,9 @@ export interface ApiShopShop extends Schema.CollectionType {
       'oneToMany',
       'api::state.state'
     >;
+    slug: Attribute.UID<'api::shop.shop', 'nombre'>;
+    precio_maximo: Attribute.Decimal;
+    precio_minimo: Attribute.Decimal;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1281,6 +1299,11 @@ export interface ApiStateState extends Schema.CollectionType {
       'api::state.state',
       'oneToMany',
       'api::locality.locality'
+    >;
+    paise: Attribute.Relation<
+      'api::state.state',
+      'manyToOne',
+      'api::country.country'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -1317,7 +1340,7 @@ export interface ApiStockStock extends Schema.CollectionType {
     precio: Attribute.Decimal & Attribute.Required;
     clasificacion_productos: Attribute.Relation<
       'api::stock.stock',
-      'oneToMany',
+      'manyToMany',
       'api::clasification-product.clasification-product'
     >;
     comentarios: Attribute.Relation<
