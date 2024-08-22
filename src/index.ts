@@ -1,11 +1,183 @@
+const { sanitize } = require("@strapi/utils");
 export default {
   /**
    * An asynchronous register function that runs before
    * your application is initialized.
    *
    * This gives you an opportunity to extend code.
+   *
    */
-  register(/*{ strapi }*/) { },
+  register({ strapi }) {
+    const extensionService = strapi.plugin("graphql").service("extension");
+    const { service: getService } = strapi.plugin("graphql");
+    const { transformArgs } = getService("builders").utils;
+    const { toEntityResponse, toEntityResponseCollection } =
+      getService("format").returnTypes;
+
+    extensionService.use(({ nexus }) => {
+      const avgStocksQuery = nexus.extendType({
+        type: "Query",
+        definition(t) {
+          t.field("stocks", {
+            type: "StockEntityResponseCollection",
+            args: {
+              sort: nexus.stringArg(), // Definido como un array de strings
+              pagination: nexus.arg({
+                type: "PaginationArg",
+              }),
+              filters: nexus.arg({
+                type: "StockFiltersInput",
+              }),
+            },
+            resolve: async (parent, args, context) => {
+              const { auth } = context.state;
+              const contentTypeName = "api::stock.stock"; // Cambia esto si es necesario
+              const contentType = strapi.contentTypes[contentTypeName];
+              const { uid } = contentType;
+
+              // Transforma los argumentos
+              const transformedArgs = transformArgs(args, {
+                contentType,
+                usePagination: true,
+              });
+              console.log(args);
+
+              // Llama al servicio para obtener los stocks con el promedio de valoraciones
+              const stocks = await strapi.entityService.findMany(
+                "api::stock.stock",
+                {
+                  populate: ["comentarios"],
+                  ...transformedArgs,
+                }
+              );
+
+              // Calcula el promedio de las valoraciones
+              const stocksWithAverageRating = await Promise.all(
+                stocks.map(async (stock) => {
+                  const comentarios = stock.comentarios || [];
+
+                  if (comentarios.length === 0) {
+                    stock.promedioValoracion = null; // No hay comentarios
+                    return stock;
+                  }
+
+                  const totalValoraciones = comentarios.reduce(
+                    (acc, comentario) => {
+                      return acc + comentario.valoracion;
+                    },
+                    0
+                  );
+
+                  const promedioValoracion =
+                    totalValoraciones / comentarios.length;
+                  stock.promedioValoracion = promedioValoracion;
+                  stock.cantidadValoraciones = comentarios.length;
+
+                  return stock;
+                })
+              );
+              const data = stocksWithAverageRating.map((stock) =>
+                toEntityResponse(
+                  { ...stock },
+                  {
+                    resourceUID: uid,
+                    args: {
+                      ...transformedArgs,
+                    },
+                  }
+                )
+              );
+              return toEntityResponseCollection(stocksWithAverageRating, {
+                args: { ...transformedArgs },
+                resourceUID: "api::stock.stock",
+              });
+            },
+          });
+        },
+      });
+      const maxminShopQuery = nexus.extendType({
+        type: "Query",
+        definition(t) {
+          t.field("shops", {
+            type: "ShopEntityResponseCollection",
+            args: {
+              sort: nexus.stringArg(), // Definido como un array de strings
+              pagination: nexus.arg({
+                type: "PaginationArg",
+              }),
+              filters: nexus.arg({
+                type: "ShopFiltersInput",
+              }),
+            },
+            resolve: async (parent, args, context) => {
+              const { auth } = context.state;
+              const contentTypeName = "api::shop.shop"; // Cambia esto si es necesario
+              const contentType = strapi.contentTypes[contentTypeName];
+              const { uid } = contentType;
+
+              // Transforma los argumentos
+              const transformedArgs = transformArgs(args, {
+                contentType,
+                usePagination: true,
+              });
+              console.log(args);
+
+              // Llama al servicio para obtener los stocks con el promedio de valoraciones
+              const shops = await strapi.entityService.findMany(
+                "api::shop.shop",
+                {
+                  populate: ["productos"],
+                  ...transformedArgs,
+                }
+              );
+
+              // Calcula el promedio de las valoraciones
+              const maxminShop = await Promise.all(
+                shops.map(async (shop) => {
+                  const products = shop.productos || [];
+
+                  if (products.length === 0) {
+                    shop.precio_maximo = null;
+                    shop.precio_minimo = null;
+                    return shop;
+                  }
+
+                  let maxPriceProduct = products.reduce(
+                    (maxProduct, product) => {
+                      return product.precio > maxProduct.precio
+                        ? product
+                        : maxProduct;
+                    },
+                    products[0]
+                  );
+
+                  // Encuentra el producto con el precio más bajo
+                  let minPriceProduct = products.reduce(
+                    (minProduct, product) => {
+                      return product.precio < minProduct.precio
+                        ? product
+                        : minProduct;
+                    },
+                    products[0]
+                  );
+                  shop.precio_maximo = maxPriceProduct.precio;
+                  shop.precio_minimo = minPriceProduct.precio;
+
+                  return shop;
+                })
+              );
+
+              return toEntityResponseCollection(maxminShop, {
+                args: { ...transformedArgs },
+                resourceUID: "api::shop.shop",
+              });
+            },
+          });
+        },
+      });
+      return { types: [avgStocksQuery, maxminShopQuery] };
+    });
+  },
 
   /**
    * An asynchronous bootstrap function that runs before
@@ -56,5 +228,5 @@ export default {
         });
       });
     }); */
-  }
+  },
 };

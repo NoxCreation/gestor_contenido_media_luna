@@ -15,10 +15,11 @@
     "nombre": {
       "type": "string"
     },
-    "tienda": {
+    "stocks": {
       "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::shop.shop"
+      "relation": "manyToMany",
+      "target": "api::stock.stock",
+      "inversedBy": "clasificacion_productos"
     }
   }
 }

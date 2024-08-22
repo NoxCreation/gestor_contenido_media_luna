@@ -22,9 +22,13 @@
       "target": "plugin::users-permissions.user"
     },
     "valoracion": {
+      "type": "decimal"
+    },
+    "stock": {
       "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::valoracion.valoracion"
+      "relation": "manyToOne",
+      "target": "api::stock.stock",
+      "inversedBy": "comentarios"
     }
   }
 }

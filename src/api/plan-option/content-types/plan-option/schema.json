@@ -28,6 +28,12 @@
       "type": "media",
       "multiple": true,
       "required": true
+    },
+    "plane": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::plan.plan",
+      "inversedBy": "opciones"
     }
   }
 }

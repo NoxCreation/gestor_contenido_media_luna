@@ -771,6 +771,11 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'manyToOne',
       'plugin::users-permissions.role'
     >;
+    usuario_plans: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'oneToMany',
+      'api::usuario-plan.usuario-plan'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -802,10 +807,10 @@ export interface ApiClasificationProductClasificationProduct
   };
   attributes: {
     nombre: Attribute.String;
-    tienda: Attribute.Relation<
+    stocks: Attribute.Relation<
       'api::clasification-product.clasification-product',
-      'oneToOne',
-      'api::shop.shop'
+      'manyToMany',
+      'api::stock.stock'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -838,6 +843,11 @@ export interface ApiClassificationStoreClassificationStore
   };
   attributes: {
     nombre: Attribute.String;
+    tiendas: Attribute.Relation<
+      'api::classification-store.classification-store',
+      'manyToMany',
+      'api::shop.shop'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -874,10 +884,11 @@ export interface ApiComentarieComentarie extends Schema.CollectionType {
       'oneToOne',
       'plugin::users-permissions.user'
     >;
-    valoracion: Attribute.Relation<
+    valoracion: Attribute.Decimal;
+    stock: Attribute.Relation<
       'api::comentarie.comentarie',
-      'oneToOne',
-      'api::valoracion.valoracion'
+      'manyToOne',
+      'api::stock.stock'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -1020,6 +1031,11 @@ export interface ApiLocalityLocality extends Schema.CollectionType {
   };
   attributes: {
     nombre: Attribute.String;
+    estado: Attribute.Relation<
+      'api::locality.locality',
+      'manyToOne',
+      'api::state.state'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1181,6 +1197,11 @@ export interface ApiPlanOptionPlanOption extends Schema.CollectionType {
     nombre: Attribute.String & Attribute.Required;
     slug_id: Attribute.String & Attribute.Required & Attribute.Unique;
     icono: Attribute.Media & Attribute.Required;
+    plane: Attribute.Relation<
+      'api::plan-option.plan-option',
+      'manyToOne',
+      'api::plan.plan'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1227,7 +1248,7 @@ export interface ApiShopShop extends Schema.CollectionType {
     logo: Attribute.Media & Attribute.Required;
     clasificacion_tiendas: Attribute.Relation<
       'api::shop.shop',
-      'oneToMany',
+      'manyToMany',
       'api::classification-store.classification-store'
     >;
     whatsapp_contact: Attribute.String & Attribute.Unique;
@@ -1243,6 +1264,14 @@ export interface ApiShopShop extends Schema.CollectionType {
       'api::stock.stock'
     >;
     color_primario: Attribute.String;
+    estados: Attribute.Relation<
+      'api::shop.shop',
+      'oneToMany',
+      'api::state.state'
+    >;
+    slug: Attribute.UID<'api::shop.shop', 'nombre'>;
+    precio_maximo: Attribute.Decimal;
+    precio_minimo: Attribute.Decimal;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1270,6 +1299,11 @@ export interface ApiStateState extends Schema.CollectionType {
       'api::state.state',
       'oneToMany',
       'api::locality.locality'
+    >;
+    paise: Attribute.Relation<
+      'api::state.state',
+      'manyToOne',
+      'api::country.country'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -1306,7 +1340,7 @@ export interface ApiStockStock extends Schema.CollectionType {
     precio: Attribute.Decimal & Attribute.Required;
     clasificacion_productos: Attribute.Relation<
       'api::stock.stock',
-      'oneToMany',
+      'manyToMany',
       'api::clasification-product.clasification-product'
     >;
     comentarios: Attribute.Relation<
@@ -1327,6 +1361,24 @@ export interface ApiStockStock extends Schema.CollectionType {
           preset: 'light';
         }
       >;
+    tienda: Attribute.Relation<
+      'api::stock.stock',
+      'manyToOne',
+      'api::shop.shop'
+    >;
+    descuento_porciento: Attribute.Integer;
+    promedioValoracion: Attribute.Decimal;
+    pais: Attribute.Relation<
+      'api::stock.stock',
+      'oneToOne',
+      'api::country.country'
+    >;
+    estado: Attribute.Relation<
+      'api::stock.stock',
+      'oneToOne',
+      'api::state.state'
+    >;
+    cantidadValoraciones: Attribute.Integer;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1359,7 +1411,7 @@ export interface ApiUsuarioPlanUsuarioPlan extends Schema.CollectionType {
   attributes: {
     usuario: Attribute.Relation<
       'api::usuario-plan.usuario-plan',
-      'oneToOne',
+      'manyToOne',
       'plugin::users-permissions.user'
     >;
     plan: Attribute.Relation<

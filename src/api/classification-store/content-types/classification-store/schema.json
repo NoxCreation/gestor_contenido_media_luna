@@ -13,6 +13,12 @@
   "attributes": {
     "nombre": {
       "type": "string"
+    },
+    "tiendas": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::shop.shop",
+      "mappedBy": "clasificacion_tiendas"
     }
   }
 }

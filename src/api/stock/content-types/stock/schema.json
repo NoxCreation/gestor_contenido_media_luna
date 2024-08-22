@@ -31,13 +31,15 @@
     },
     "clasificacion_productos": {
       "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::clasification-product.clasification-product"
+      "relation": "manyToMany",
+      "target": "api::clasification-product.clasification-product",
+      "inversedBy": "stocks"
     },
     "comentarios": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::comentarie.comentarie"
+      "target": "api::comentarie.comentarie",
+      "mappedBy": "stock"
     },
     "foto2": {
       "type": "media",
@@ -74,6 +76,31 @@
       },
       "required": true,
       "customField": "plugin::ckeditor.CKEditor"
+    },
+    "tienda": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::shop.shop",
+      "inversedBy": "productos"
+    },
+    "descuento_porciento": {
+      "type": "integer"
+    },
+    "promedioValoracion": {
+      "type": "decimal"
+    },
+    "pais": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::country.country"
+    },
+    "estado": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::state.state"
+    },
+    "cantidadValoraciones": {
+      "type": "integer"
     }
   }
 }
