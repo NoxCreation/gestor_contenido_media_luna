@@ -95,7 +95,87 @@ export default {
           });
         },
       });
-      return { types: [avgStocksQuery] };
+      const maxminShopQuery = nexus.extendType({
+        type: "Query",
+        definition(t) {
+          t.field("shops", {
+            type: "ShopEntityResponseCollection",
+            args: {
+              sort: nexus.stringArg(), // Definido como un array de strings
+              pagination: nexus.arg({
+                type: "PaginationArg",
+              }),
+              filters: nexus.arg({
+                type: "ShopFiltersInput",
+              }),
+            },
+            resolve: async (parent, args, context) => {
+              const { auth } = context.state;
+              const contentTypeName = "api::shop.shop"; // Cambia esto si es necesario
+              const contentType = strapi.contentTypes[contentTypeName];
+              const { uid } = contentType;
+
+              // Transforma los argumentos
+              const transformedArgs = transformArgs(args, {
+                contentType,
+                usePagination: true,
+              });
+              console.log(args);
+
+              // Llama al servicio para obtener los stocks con el promedio de valoraciones
+              const shops = await strapi.entityService.findMany(
+                "api::shop.shop",
+                {
+                  populate: ["productos"],
+                  ...transformedArgs,
+                }
+              );
+
+              // Calcula el promedio de las valoraciones
+              const maxminShop = await Promise.all(
+                shops.map(async (shop) => {
+                  const products = shop.productos || [];
+
+                  if (products.length === 0) {
+                    shop.precio_maximo = null;
+                    shop.precio_minimo = null;
+                    return shop;
+                  }
+
+                  let maxPriceProduct = products.reduce(
+                    (maxProduct, product) => {
+                      return product.precio > maxProduct.precio
+                        ? product
+                        : maxProduct;
+                    },
+                    products[0]
+                  );
+
+                  // Encuentra el producto con el precio más bajo
+                  let minPriceProduct = products.reduce(
+                    (minProduct, product) => {
+                      return product.precio < minProduct.precio
+                        ? product
+                        : minProduct;
+                    },
+                    products[0]
+                  );
+                  shop.precio_maximo = maxPriceProduct.precio;
+                  shop.precio_minimo = minPriceProduct.precio;
+
+                  return shop;
+                })
+              );
+
+              return toEntityResponseCollection(maxminShop, {
+                args: { ...transformedArgs },
+                resourceUID: "api::shop.shop",
+              });
+            },
+          });
+        },
+      });
+      return { types: [avgStocksQuery, maxminShopQuery] };
     });
   },
 
