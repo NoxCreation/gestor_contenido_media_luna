@@ -1,0 +1,45 @@
+{
+  "kind": "collectionType",
+  "collectionName": "mensajerias",
+  "info": {
+    "singularName": "mensajeria",
+    "pluralName": "mensajerias",
+    "displayName": "Mensajeria"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Nombre": {
+      "type": "string"
+    },
+    "paise": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::country.country"
+    },
+    "estado": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::state.state"
+    },
+    "localidad": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::locality.locality"
+    },
+    "descripcion": {
+      "type": "text"
+    },
+    "precio": {
+      "type": "decimal"
+    },
+    "tienda": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::shop.shop",
+      "inversedBy": "mensajerias"
+    }
+  }
+}

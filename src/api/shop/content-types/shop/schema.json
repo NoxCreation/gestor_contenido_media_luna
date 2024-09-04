@@ -104,6 +104,17 @@
     },
     "precio_minimo": {
       "type": "decimal"
+    },
+    "mensajerias": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::mensajeria.mensajeria",
+      "mappedBy": "tienda"
+    },
+    "monedas": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::moneda.moneda"
     }
   }
 }

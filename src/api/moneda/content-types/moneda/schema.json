@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "monedas",
+  "info": {
+    "singularName": "moneda",
+    "pluralName": "monedas",
+    "displayName": "Moneda",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nombre": {
+      "type": "string"
+    },
+    "cambio_usd": {
+      "type": "decimal"
+    },
+    "simbolo": {
+      "type": "string"
+    },
+    "nombre_completo": {
+      "type": "string"
+    }
+  }
+}
