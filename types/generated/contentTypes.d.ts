@@ -1407,7 +1407,6 @@ export interface ApiShopShop extends Schema.CollectionType {
       'oneToMany',
       'api::stock.stock'
     >;
-    color_primario: Attribute.String;
     estados: Attribute.Relation<
       'api::shop.shop',
       'oneToMany',
@@ -1426,6 +1425,8 @@ export interface ApiShopShop extends Schema.CollectionType {
       'oneToMany',
       'api::moneda.moneda'
     >;
+    color_primario: Attribute.String &
+      Attribute.CustomField<'plugin::color-picker.color'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

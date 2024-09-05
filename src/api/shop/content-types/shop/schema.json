@@ -87,9 +87,6 @@
       "target": "api::stock.stock",
       "mappedBy": "tienda"
     },
-    "color_primario": {
-      "type": "string"
-    },
     "estados": {
       "type": "relation",
       "relation": "oneToMany",
@@ -115,6 +112,11 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::moneda.moneda"
+    },
+    "color_primario": {
+      "type": "customField",
+      "regex": "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$",
+      "customField": "plugin::color-picker.color"
     }
   }
 }
