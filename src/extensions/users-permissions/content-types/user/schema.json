@@ -9,8 +9,7 @@
     "displayName": "User"
   },
   "options": {
-    "draftAndPublish": false,
-    "timestamps": true
+    "draftAndPublish": false
   },
   "attributes": {
     "username": {
@@ -71,6 +70,32 @@
       "relation": "oneToMany",
       "target": "api::usuario-plan.usuario-plan",
       "mappedBy": "usuario"
+    },
+    "direcciones": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::direcciones-user.direcciones-user",
+      "mappedBy": "user"
+    },
+    "nombre": {
+      "type": "string",
+      "required": false
+    },
+    "apellido": {
+      "type": "string",
+      "required": false
+    },
+    "pais_id": {
+      "type": "integer",
+      "required": false
+    },
+    "estado_id": {
+      "type": "integer",
+      "required": false
+    },
+    "localidad_id": {
+      "type": "integer",
+      "required": false
     }
   }
 }

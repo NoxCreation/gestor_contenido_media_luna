@@ -1,0 +1,27 @@
+{
+  "kind": "collectionType",
+  "collectionName": "direcciones_users",
+  "info": {
+    "singularName": "direcciones-user",
+    "pluralName": "direcciones-users",
+    "displayName": "DireccionesUser"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nombre_direccion": {
+      "type": "string"
+    },
+    "direccion": {
+      "type": "text"
+    },
+    "user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "direcciones"
+    }
+  }
+}

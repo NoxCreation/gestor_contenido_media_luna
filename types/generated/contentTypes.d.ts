@@ -742,7 +742,6 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
   options: {
     draftAndPublish: false;
-    timestamps: true;
   };
   attributes: {
     username: Attribute.String &
@@ -776,6 +775,16 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'oneToMany',
       'api::usuario-plan.usuario-plan'
     >;
+    direcciones: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'oneToMany',
+      'api::direcciones-user.direcciones-user'
+    >;
+    nombre: Attribute.String;
+    apellido: Attribute.String;
+    pais_id: Attribute.Integer;
+    estado_id: Attribute.Integer;
+    localidad_id: Attribute.Integer;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -944,6 +953,43 @@ export interface ApiCountryCountry extends Schema.CollectionType {
   };
 }
 
+export interface ApiDireccionesUserDireccionesUser
+  extends Schema.CollectionType {
+  collectionName: 'direcciones_users';
+  info: {
+    singularName: 'direcciones-user';
+    pluralName: 'direcciones-users';
+    displayName: 'DireccionesUser';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    nombre_direccion: Attribute.String;
+    direccion: Attribute.Text;
+    user: Attribute.Relation<
+      'api::direcciones-user.direcciones-user',
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::direcciones-user.direcciones-user',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::direcciones-user.direcciones-user',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiEstadoOrdenEstadoOrden extends Schema.CollectionType {
   collectionName: 'estado_ordens';
   info: {
@@ -1025,6 +1071,7 @@ export interface ApiLocalityLocality extends Schema.CollectionType {
     singularName: 'locality';
     pluralName: 'locations';
     displayName: 'Localidad';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -1047,6 +1094,92 @@ export interface ApiLocalityLocality extends Schema.CollectionType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::locality.locality',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiMensajeriaMensajeria extends Schema.CollectionType {
+  collectionName: 'mensajerias';
+  info: {
+    singularName: 'mensajeria';
+    pluralName: 'mensajerias';
+    displayName: 'Mensajeria';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    Nombre: Attribute.String;
+    paise: Attribute.Relation<
+      'api::mensajeria.mensajeria',
+      'oneToOne',
+      'api::country.country'
+    >;
+    estado: Attribute.Relation<
+      'api::mensajeria.mensajeria',
+      'oneToOne',
+      'api::state.state'
+    >;
+    localidad: Attribute.Relation<
+      'api::mensajeria.mensajeria',
+      'oneToOne',
+      'api::locality.locality'
+    >;
+    descripcion: Attribute.Text;
+    precio: Attribute.Decimal;
+    tienda: Attribute.Relation<
+      'api::mensajeria.mensajeria',
+      'manyToOne',
+      'api::shop.shop'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::mensajeria.mensajeria',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::mensajeria.mensajeria',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiMonedaMoneda extends Schema.CollectionType {
+  collectionName: 'monedas';
+  info: {
+    singularName: 'moneda';
+    pluralName: 'monedas';
+    displayName: 'Moneda';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    nombre: Attribute.String;
+    cambio_usd: Attribute.Decimal;
+    simbolo: Attribute.String;
+    nombre_completo: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::moneda.moneda',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::moneda.moneda',
       'oneToOne',
       'admin::user'
     > &
@@ -1135,7 +1268,18 @@ export interface ApiOrderOrder extends Schema.CollectionType {
       'oneToOne',
       'api::state.state'
     >;
-    numero_orden: Attribute.String & Attribute.Required;
+    numero_orden: Attribute.String;
+    direccion: Attribute.String;
+    telefono: Attribute.String;
+    precio_mensajeria: Attribute.Decimal;
+    precio_total: Attribute.Decimal;
+    precio_productos: Attribute.Decimal;
+    moneda: Attribute.String;
+    user_id: Attribute.Relation<
+      'api::order.order',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1263,7 +1407,6 @@ export interface ApiShopShop extends Schema.CollectionType {
       'oneToMany',
       'api::stock.stock'
     >;
-    color_primario: Attribute.String;
     estados: Attribute.Relation<
       'api::shop.shop',
       'oneToMany',
@@ -1272,6 +1415,18 @@ export interface ApiShopShop extends Schema.CollectionType {
     slug: Attribute.UID<'api::shop.shop', 'nombre'>;
     precio_maximo: Attribute.Decimal;
     precio_minimo: Attribute.Decimal;
+    mensajerias: Attribute.Relation<
+      'api::shop.shop',
+      'oneToMany',
+      'api::mensajeria.mensajeria'
+    >;
+    monedas: Attribute.Relation<
+      'api::shop.shop',
+      'oneToMany',
+      'api::moneda.moneda'
+    >;
+    color_primario: Attribute.String &
+      Attribute.CustomField<'plugin::color-picker.color'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1503,9 +1658,12 @@ declare module '@strapi/types' {
       'api::classification-store.classification-store': ApiClassificationStoreClassificationStore;
       'api::comentarie.comentarie': ApiComentarieComentarie;
       'api::country.country': ApiCountryCountry;
+      'api::direcciones-user.direcciones-user': ApiDireccionesUserDireccionesUser;
       'api::estado-orden.estado-orden': ApiEstadoOrdenEstadoOrden;
       'api::invoice.invoice': ApiInvoiceInvoice;
       'api::locality.locality': ApiLocalityLocality;
+      'api::mensajeria.mensajeria': ApiMensajeriaMensajeria;
+      'api::moneda.moneda': ApiMonedaMoneda;
       'api::orden-stock.orden-stock': ApiOrdenStockOrdenStock;
       'api::order.order': ApiOrderOrder;
       'api::plan.plan': ApiPlanPlan;

@@ -3740,7 +3740,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@strapi/design-system@npm:^1.6.3":
+"@strapi/design-system@npm:1.19.0, @strapi/design-system@npm:^1.6.3":
   version: 1.19.0
   resolution: "@strapi/design-system@npm:1.19.0"
   dependencies:
@@ -3828,6 +3828,31 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@strapi/helper-plugin@npm:4.25.10":
+  version: 4.25.10
+  resolution: "@strapi/helper-plugin@npm:4.25.10"
+  dependencies:
+    axios: "npm:1.7.4"
+    date-fns: "npm:2.30.0"
+    formik: "npm:2.4.0"
+    immer: "npm:9.0.19"
+    lodash: "npm:4.17.21"
+    qs: "npm:6.11.1"
+    react-helmet: "npm:6.1.0"
+    react-intl: "npm:6.4.1"
+    react-query: "npm:3.39.3"
+    react-select: "npm:5.7.0"
+  peerDependencies:
+    "@strapi/design-system": 1.19.0
+    "@strapi/icons": 1.19.0
+    react: ^17.0.0 || ^18.0.0
+    react-dom: ^17.0.0 || ^18.0.0
+    react-router-dom: ^5.2.0
+    styled-components: ^5.2.1
+  checksum: 10c0/786e04598f34d43ff9bcae9eba7e18b2d94c93fd7daf3b96a8867b5f2cdd177f951969f8aaa8e6588bb66061b2ec472b21289366095a3b569f7ca90c5628773a
+  languageName: node
+  linkType: hard
+
 "@strapi/helper-plugin@npm:^4.6.0":
   version: 4.25.7
   resolution: "@strapi/helper-plugin@npm:4.25.7"
@@ -3863,7 +3888,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@strapi/icons@npm:^1.6.3":
+"@strapi/icons@npm:1.19.0, @strapi/icons@npm:^1.6.3":
   version: 1.19.0
   resolution: "@strapi/icons@npm:1.19.0"
   peerDependencies:
@@ -3942,6 +3967,26 @@ __metadata:
     react-router-dom: 5.3.4
     styled-components: 5.3.3
   checksum: 10c0/a3773a567f0f5adb941f81447221864bd9ebb052690a3d782cd6cbecdf9246d60b4df059de275f4f42e4ce36d10436fa4fd87892f69f3d23c8c81b3ccc1d0313
+  languageName: node
+  linkType: hard
+
+"@strapi/plugin-color-picker@npm:^4.25.10":
+  version: 4.25.10
+  resolution: "@strapi/plugin-color-picker@npm:4.25.10"
+  dependencies:
+    "@strapi/design-system": "npm:1.19.0"
+    "@strapi/helper-plugin": "npm:4.25.10"
+    "@strapi/icons": "npm:1.19.0"
+    prop-types: "npm:^15.8.1"
+    react-colorful: "npm:5.6.1"
+    react-intl: "npm:6.4.1"
+  peerDependencies:
+    "@strapi/strapi": ^4.4.0
+    react: ^17.0.0 || ^18.0.0
+    react-dom: ^17.0.0 || ^18.0.0
+    react-router-dom: ^5.2.0
+    styled-components: ^5.2.1
+  checksum: 10c0/4dd849029a114d86312c2acbb6c5fc87e9b890bba049a887c87e743da58d0b1ec8858b45a3913b0b583a9689f2b17270a6ba1fe6b6cc1d14ea6c99f044a6a4bc
   languageName: node
   linkType: hard
 
@@ -5791,6 +5836,17 @@ __metadata:
     form-data: "npm:^4.0.0"
     proxy-from-env: "npm:^1.1.0"
   checksum: 10c0/2879e17b96cbca7e2096d231a44e2d0f03e657d79f8928ea38ec5fbaf5a5b7bf952d580cdb58a66ba328c26eb3528b89d5a32da57cc5cf89813786c044f7e9d6
+  languageName: node
+  linkType: hard
+
+"axios@npm:1.7.4":
+  version: 1.7.4
+  resolution: "axios@npm:1.7.4"
+  dependencies:
+    follow-redirects: "npm:^1.15.6"
+    form-data: "npm:^4.0.0"
+    proxy-from-env: "npm:^1.1.0"
+  checksum: 10c0/5ea1a93140ca1d49db25ef8e1bd8cfc59da6f9220159a944168860ad15a2743ea21c5df2967795acb15cbe81362f5b157fdebbea39d53117ca27658bab9f7f17
   languageName: node
   linkType: hard
 
@@ -8895,6 +8951,7 @@ __metadata:
   dependencies:
     "@creazy231/strapi-plugin-apollo-sandbox": "npm:^0.0.15"
     "@strapi/plugin-cloud": "npm:4.24.2"
+    "@strapi/plugin-color-picker": "npm:^4.25.10"
     "@strapi/plugin-graphql": "npm:^4.24.2"
     "@strapi/plugin-i18n": "npm:4.24.2"
     "@strapi/plugin-users-permissions": "npm:4.24.2"
@@ -13215,6 +13272,16 @@ __metadata:
   bin:
     rc: ./cli.js
   checksum: 10c0/24a07653150f0d9ac7168e52943cc3cb4b7a22c0e43c7dff3219977c2fdca5a2760a304a029c20811a0e79d351f57d46c9bde216193a0f73978496afc2b85b15
+  languageName: node
+  linkType: hard
+
+"react-colorful@npm:5.6.1":
+  version: 5.6.1
+  resolution: "react-colorful@npm:5.6.1"
+  peerDependencies:
+    react: ">=16.8.0"
+    react-dom: ">=16.8.0"
+  checksum: 10c0/48eb73cf71e10841c2a61b6b06ab81da9fffa9876134c239bfdebcf348ce2a47e56b146338e35dfb03512c85966bfc9a53844fc56bc50154e71f8daee59ff6f0
   languageName: node
   linkType: hard
 

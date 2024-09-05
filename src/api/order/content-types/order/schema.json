@@ -56,7 +56,30 @@
     },
     "numero_orden": {
       "type": "string",
-      "required": true
+      "required": false
+    },
+    "direccion": {
+      "type": "string"
+    },
+    "telefono": {
+      "type": "string"
+    },
+    "precio_mensajeria": {
+      "type": "decimal"
+    },
+    "precio_total": {
+      "type": "decimal"
+    },
+    "precio_productos": {
+      "type": "decimal"
+    },
+    "moneda": {
+      "type": "string"
+    },
+    "user_id": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
     }
   }
 }
