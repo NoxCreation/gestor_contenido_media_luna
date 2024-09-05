@@ -4,7 +4,8 @@
   "info": {
     "singularName": "direcciones-user",
     "pluralName": "direcciones-users",
-    "displayName": "DireccionesUser"
+    "displayName": "DireccionesUser",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -19,9 +20,8 @@
     },
     "user": {
       "type": "relation",
-      "relation": "manyToOne",
-      "target": "plugin::users-permissions.user",
-      "inversedBy": "direcciones"
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
     }
   }
 }

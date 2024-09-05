@@ -71,12 +71,6 @@
       "target": "api::usuario-plan.usuario-plan",
       "mappedBy": "usuario"
     },
-    "direcciones": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::direcciones-user.direcciones-user",
-      "mappedBy": "user"
-    },
     "nombre": {
       "type": "string",
       "required": false

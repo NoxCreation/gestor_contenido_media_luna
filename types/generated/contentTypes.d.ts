@@ -775,11 +775,6 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'oneToMany',
       'api::usuario-plan.usuario-plan'
     >;
-    direcciones: Attribute.Relation<
-      'plugin::users-permissions.user',
-      'oneToMany',
-      'api::direcciones-user.direcciones-user'
-    >;
     nombre: Attribute.String;
     apellido: Attribute.String;
     pais_id: Attribute.Integer;
@@ -960,6 +955,7 @@ export interface ApiDireccionesUserDireccionesUser
     singularName: 'direcciones-user';
     pluralName: 'direcciones-users';
     displayName: 'DireccionesUser';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -969,7 +965,7 @@ export interface ApiDireccionesUserDireccionesUser
     direccion: Attribute.Text;
     user: Attribute.Relation<
       'api::direcciones-user.direcciones-user',
-      'manyToOne',
+      'oneToOne',
       'plugin::users-permissions.user'
     >;
     createdAt: Attribute.DateTime;
