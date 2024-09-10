@@ -21,6 +21,9 @@
       "relation": "oneToMany",
       "target": "api::plan-option.plan-option",
       "mappedBy": "plane"
+    },
+    "precio": {
+      "type": "decimal"
     }
   }
 }
