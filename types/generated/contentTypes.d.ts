@@ -841,6 +841,7 @@ export interface ApiClassificationStoreClassificationStore
     singularName: 'classification-store';
     pluralName: 'classification-stores';
     displayName: 'ClasificacionTienda';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -852,6 +853,7 @@ export interface ApiClassificationStoreClassificationStore
       'manyToMany',
       'api::shop.shop'
     >;
+    icono: Attribute.Media;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1312,6 +1314,7 @@ export interface ApiPlanPlan extends Schema.CollectionType {
       'oneToMany',
       'api::plan-option.plan-option'
     >;
+    precio: Attribute.Decimal;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1335,13 +1338,15 @@ export interface ApiPlanOptionPlanOption extends Schema.CollectionType {
   };
   attributes: {
     nombre: Attribute.String & Attribute.Required;
-    slug_id: Attribute.String & Attribute.Required & Attribute.Unique;
     icono: Attribute.Media & Attribute.Required;
     plane: Attribute.Relation<
       'api::plan-option.plan-option',
       'manyToOne',
       'api::plan.plan'
     >;
+    descripcion: Attribute.String;
+    slug: Attribute.UID<'api::plan-option.plan-option', 'nombre'> &
+      Attribute.Required;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1632,6 +1637,38 @@ export interface ApiValoracionValoracion extends Schema.CollectionType {
   };
 }
 
+export interface ApiVercificacionEmailVercificacionEmail
+  extends Schema.CollectionType {
+  collectionName: 'vercificacion_emails';
+  info: {
+    singularName: 'vercificacion-email';
+    pluralName: 'vercificacion-emails';
+    displayName: 'VercificacionEmail';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    email: Attribute.Email;
+    code: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::vercificacion-email.vercificacion-email',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::vercificacion-email.vercificacion-email',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -1669,6 +1706,7 @@ declare module '@strapi/types' {
       'api::stock.stock': ApiStockStock;
       'api::usuario-plan.usuario-plan': ApiUsuarioPlanUsuarioPlan;
       'api::valoracion.valoracion': ApiValoracionValoracion;
+      'api::vercificacion-email.vercificacion-email': ApiVercificacionEmailVercificacionEmail;
     }
   }
 }
