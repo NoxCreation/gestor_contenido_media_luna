@@ -16,24 +16,27 @@
       "type": "string",
       "required": true
     },
-    "slug_id": {
-      "type": "string",
-      "required": true,
-      "unique": true
-    },
     "icono": {
-      "allowedTypes": [
-        "images"
-      ],
       "type": "media",
       "multiple": true,
-      "required": true
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
     },
     "plane": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::plan.plan",
       "inversedBy": "opciones"
+    },
+    "descripcion": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "nombre",
+      "required": true
     }
   }
 }

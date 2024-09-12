@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "cambio_moneda_tiendas",
+  "info": {
+    "singularName": "cambio-moneda-tienda",
+    "pluralName": "cambio-moneda-tiendas",
+    "displayName": "CambioMonedaTienda",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "cambio_usd": {
+      "type": "decimal"
+    },
+    "tienda": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::shop.shop",
+      "inversedBy": "cambio_moneda_tiendas"
+    },
+    "moneda": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::moneda.moneda"
+    }
+  }
+}

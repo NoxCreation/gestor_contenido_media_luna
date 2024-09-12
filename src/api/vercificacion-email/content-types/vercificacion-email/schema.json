@@ -1,0 +1,21 @@
+{
+  "kind": "collectionType",
+  "collectionName": "vercificacion_emails",
+  "info": {
+    "singularName": "vercificacion-email",
+    "pluralName": "vercificacion-emails",
+    "displayName": "VercificacionEmail"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "email": {
+      "type": "email"
+    },
+    "code": {
+      "type": "string"
+    }
+  }
+}

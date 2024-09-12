@@ -15,14 +15,15 @@
     "nombre": {
       "type": "string"
     },
-    "cambio_usd": {
-      "type": "decimal"
-    },
     "simbolo": {
       "type": "string"
     },
     "nombre_completo": {
       "type": "string"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "nombre"
     }
   }
 }

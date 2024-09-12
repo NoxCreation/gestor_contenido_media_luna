@@ -4,7 +4,8 @@
   "info": {
     "singularName": "classification-store",
     "pluralName": "classification-stores",
-    "displayName": "ClasificacionTienda"
+    "displayName": "ClasificacionTienda",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -19,6 +20,16 @@
       "relation": "manyToMany",
       "target": "api::shop.shop",
       "mappedBy": "clasificacion_tiendas"
+    },
+    "icono": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": true
     }
   }
 }
