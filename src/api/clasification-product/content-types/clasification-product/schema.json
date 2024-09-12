@@ -19,7 +19,7 @@
       "type": "relation",
       "relation": "manyToMany",
       "target": "api::stock.stock",
-      "inversedBy": "clasificacion_productos"
+      "mappedBy": "clasificacion_productos"
     }
   }
 }

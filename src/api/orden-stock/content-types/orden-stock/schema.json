@@ -4,7 +4,8 @@
   "info": {
     "singularName": "orden-stock",
     "pluralName": "orden-stocks",
-    "displayName": "OrdenStock"
+    "displayName": "OrdenStock",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -21,6 +22,15 @@
     },
     "cantidad": {
       "type": "integer"
+    },
+    "moneda": {
+      "type": "string"
+    },
+    "simbolo_moneda": {
+      "type": "string"
+    },
+    "cambio_usd": {
+      "type": "decimal"
     }
   }
 }

@@ -797,6 +797,48 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
 }
 
+export interface ApiCambioMonedaTiendaCambioMonedaTienda
+  extends Schema.CollectionType {
+  collectionName: 'cambio_moneda_tiendas';
+  info: {
+    singularName: 'cambio-moneda-tienda';
+    pluralName: 'cambio-moneda-tiendas';
+    displayName: 'CambioMonedaTienda';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    cambio_usd: Attribute.Decimal;
+    tienda: Attribute.Relation<
+      'api::cambio-moneda-tienda.cambio-moneda-tienda',
+      'manyToOne',
+      'api::shop.shop'
+    >;
+    moneda: Attribute.Relation<
+      'api::cambio-moneda-tienda.cambio-moneda-tienda',
+      'oneToOne',
+      'api::moneda.moneda'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::cambio-moneda-tienda.cambio-moneda-tienda',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::cambio-moneda-tienda.cambio-moneda-tienda',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiClasificationProductClasificationProduct
   extends Schema.CollectionType {
   collectionName: 'clasification_products';
@@ -1164,9 +1206,9 @@ export interface ApiMonedaMoneda extends Schema.CollectionType {
   };
   attributes: {
     nombre: Attribute.String;
-    cambio_usd: Attribute.Decimal;
     simbolo: Attribute.String;
     nombre_completo: Attribute.String;
+    slug: Attribute.UID<'api::moneda.moneda', 'nombre'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1191,6 +1233,7 @@ export interface ApiOrdenStockOrdenStock extends Schema.CollectionType {
     singularName: 'orden-stock';
     pluralName: 'orden-stocks';
     displayName: 'OrdenStock';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -1203,6 +1246,9 @@ export interface ApiOrdenStockOrdenStock extends Schema.CollectionType {
     >;
     enabled: Attribute.Boolean;
     cantidad: Attribute.Integer;
+    moneda: Attribute.String;
+    simbolo_moneda: Attribute.String;
+    cambio_usd: Attribute.Decimal;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1428,6 +1474,11 @@ export interface ApiShopShop extends Schema.CollectionType {
     >;
     color_primario: Attribute.String &
       Attribute.CustomField<'plugin::color-picker.color'>;
+    cambio_moneda_tiendas: Attribute.Relation<
+      'api::shop.shop',
+      'oneToMany',
+      'api::cambio-moneda-tienda.cambio-moneda-tienda'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1535,6 +1586,16 @@ export interface ApiStockStock extends Schema.CollectionType {
       'api::state.state'
     >;
     cantidadValoraciones: Attribute.Integer;
+    moneda_principal: Attribute.Relation<
+      'api::stock.stock',
+      'oneToOne',
+      'api::cambio-moneda-tienda.cambio-moneda-tienda'
+    >;
+    cambio_moneda_permitidas: Attribute.Relation<
+      'api::stock.stock',
+      'oneToMany',
+      'api::cambio-moneda-tienda.cambio-moneda-tienda'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1687,6 +1748,7 @@ declare module '@strapi/types' {
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
+      'api::cambio-moneda-tienda.cambio-moneda-tienda': ApiCambioMonedaTiendaCambioMonedaTienda;
       'api::clasification-product.clasification-product': ApiClasificationProductClasificationProduct;
       'api::classification-store.classification-store': ApiClassificationStoreClassificationStore;
       'api::comentarie.comentarie': ApiComentarieComentarie;

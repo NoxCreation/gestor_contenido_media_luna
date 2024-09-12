@@ -101,6 +101,16 @@
     },
     "cantidadValoraciones": {
       "type": "integer"
+    },
+    "moneda_principal": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::cambio-moneda-tienda.cambio-moneda-tienda"
+    },
+    "cambio_moneda_permitidas": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::cambio-moneda-tienda.cambio-moneda-tienda"
     }
   }
 }
