@@ -1435,8 +1435,8 @@ export interface ApiShopShop extends Schema.CollectionType {
       'oneToMany',
       'api::country.country'
     >;
-    banner: Attribute.Media & Attribute.Required;
-    logo: Attribute.Media & Attribute.Required;
+    banner: Attribute.Media;
+    logo: Attribute.Media;
     clasificacion_tiendas: Attribute.Relation<
       'api::shop.shop',
       'manyToMany',
