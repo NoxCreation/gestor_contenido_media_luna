@@ -811,9 +811,9 @@ export interface ApiCambioMonedaTiendaCambioMonedaTienda
   };
   attributes: {
     cambio_usd: Attribute.Decimal;
-    tienda: Attribute.Relation<
+    tiendas: Attribute.Relation<
       'api::cambio-moneda-tienda.cambio-moneda-tienda',
-      'manyToOne',
+      'manyToMany',
       'api::shop.shop'
     >;
     moneda: Attribute.Relation<
@@ -857,6 +857,12 @@ export interface ApiClasificationProductClasificationProduct
       'api::clasification-product.clasification-product',
       'manyToMany',
       'api::stock.stock'
+    >;
+    descripcion: Attribute.Text;
+    tienda: Attribute.Relation<
+      'api::clasification-product.clasification-product',
+      'oneToOne',
+      'api::shop.shop'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -949,6 +955,38 @@ export interface ApiComentarieComentarie extends Schema.CollectionType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::comentarie.comentarie',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiContactoMediaLunaContactoMediaLuna
+  extends Schema.CollectionType {
+  collectionName: 'contacto_media_lunas';
+  info: {
+    singularName: 'contacto-media-luna';
+    pluralName: 'contacto-media-lunas';
+    displayName: 'Contacto MediaLuna';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    whatsApp: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::contacto-media-luna.contacto-media-luna',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::contacto-media-luna.contacto-media-luna',
       'oneToOne',
       'admin::user'
     > &
@@ -1147,6 +1185,7 @@ export interface ApiMensajeriaMensajeria extends Schema.CollectionType {
     singularName: 'mensajeria';
     pluralName: 'mensajerias';
     displayName: 'Mensajeria';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -1174,6 +1213,11 @@ export interface ApiMensajeriaMensajeria extends Schema.CollectionType {
       'api::mensajeria.mensajeria',
       'manyToOne',
       'api::shop.shop'
+    >;
+    cambio_moneda_tienda: Attribute.Relation<
+      'api::mensajeria.mensajeria',
+      'oneToOne',
+      'api::cambio-moneda-tienda.cambio-moneda-tienda'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -1361,6 +1405,7 @@ export interface ApiPlanPlan extends Schema.CollectionType {
       'api::plan-option.plan-option'
     >;
     precio: Attribute.Decimal;
+    descripcion: Attribute.Text;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1411,6 +1456,46 @@ export interface ApiPlanOptionPlanOption extends Schema.CollectionType {
   };
 }
 
+export interface ApiRetirarGananciasReferidoRetirarGananciasReferido
+  extends Schema.CollectionType {
+  collectionName: 'retirar_ganancias_referidos';
+  info: {
+    singularName: 'retirar-ganancias-referido';
+    pluralName: 'retirar-ganancias-referidos';
+    displayName: 'RetirarGananciasReferido';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    cantidad_retiro: Attribute.Decimal;
+    numero_tarjeta: Attribute.String;
+    numero_telefono: Attribute.String;
+    user: Attribute.Relation<
+      'api::retirar-ganancias-referido.retirar-ganancias-referido',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+    acreditado: Attribute.Boolean & Attribute.DefaultTo<false>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::retirar-ganancias-referido.retirar-ganancias-referido',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::retirar-ganancias-referido.retirar-ganancias-referido',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiShopShop extends Schema.CollectionType {
   collectionName: 'shops';
   info: {
@@ -1442,13 +1527,13 @@ export interface ApiShopShop extends Schema.CollectionType {
       'manyToMany',
       'api::classification-store.classification-store'
     >;
-    whatsapp_contact: Attribute.String & Attribute.Unique;
-    telegram_contact: Attribute.String & Attribute.Unique;
-    instagram_contact: Attribute.String & Attribute.Unique;
-    x_contact: Attribute.String & Attribute.Unique;
-    phone_contact: Attribute.String & Attribute.Unique;
-    site_contact: Attribute.String & Attribute.Unique;
-    email_contact: Attribute.String & Attribute.Unique;
+    whatsapp_contact: Attribute.String;
+    telegram_contact: Attribute.String;
+    instagram_contact: Attribute.String;
+    x_contact: Attribute.String;
+    phone_contact: Attribute.String;
+    site_contact: Attribute.String;
+    email_contact: Attribute.String;
     productos: Attribute.Relation<
       'api::shop.shop',
       'oneToMany',
@@ -1476,7 +1561,7 @@ export interface ApiShopShop extends Schema.CollectionType {
       Attribute.CustomField<'plugin::color-picker.color'>;
     cambio_moneda_tiendas: Attribute.Relation<
       'api::shop.shop',
-      'oneToMany',
+      'manyToMany',
       'api::cambio-moneda-tienda.cambio-moneda-tienda'
     >;
     createdAt: Attribute.DateTime;
@@ -1659,6 +1744,46 @@ export interface ApiUsuarioPlanUsuarioPlan extends Schema.CollectionType {
   };
 }
 
+export interface ApiUsuarioReferidoUsuarioReferido
+  extends Schema.CollectionType {
+  collectionName: 'usuario_referidos';
+  info: {
+    singularName: 'usuario-referido';
+    pluralName: 'usuario-referidos';
+    displayName: 'UsuarioReferido';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    usuario: Attribute.Relation<
+      'api::usuario-referido.usuario-referido',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+    referidos: Attribute.Relation<
+      'api::usuario-referido.usuario-referido',
+      'oneToMany',
+      'plugin::users-permissions.user'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::usuario-referido.usuario-referido',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::usuario-referido.usuario-referido',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiValoracionValoracion extends Schema.CollectionType {
   collectionName: 'valoracions';
   info: {
@@ -1752,6 +1877,7 @@ declare module '@strapi/types' {
       'api::clasification-product.clasification-product': ApiClasificationProductClasificationProduct;
       'api::classification-store.classification-store': ApiClassificationStoreClassificationStore;
       'api::comentarie.comentarie': ApiComentarieComentarie;
+      'api::contacto-media-luna.contacto-media-luna': ApiContactoMediaLunaContactoMediaLuna;
       'api::country.country': ApiCountryCountry;
       'api::direcciones-user.direcciones-user': ApiDireccionesUserDireccionesUser;
       'api::estado-orden.estado-orden': ApiEstadoOrdenEstadoOrden;
@@ -1763,10 +1889,12 @@ declare module '@strapi/types' {
       'api::order.order': ApiOrderOrder;
       'api::plan.plan': ApiPlanPlan;
       'api::plan-option.plan-option': ApiPlanOptionPlanOption;
+      'api::retirar-ganancias-referido.retirar-ganancias-referido': ApiRetirarGananciasReferidoRetirarGananciasReferido;
       'api::shop.shop': ApiShopShop;
       'api::state.state': ApiStateState;
       'api::stock.stock': ApiStockStock;
       'api::usuario-plan.usuario-plan': ApiUsuarioPlanUsuarioPlan;
+      'api::usuario-referido.usuario-referido': ApiUsuarioReferidoUsuarioReferido;
       'api::valoracion.valoracion': ApiValoracionValoracion;
       'api::vercificacion-email.vercificacion-email': ApiVercificacionEmailVercificacionEmail;
     }
