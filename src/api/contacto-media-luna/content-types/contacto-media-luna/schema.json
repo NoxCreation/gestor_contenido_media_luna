@@ -1,0 +1,19 @@
+{
+  "kind": "collectionType",
+  "collectionName": "contacto_media_lunas",
+  "info": {
+    "singularName": "contacto-media-luna",
+    "pluralName": "contacto-media-lunas",
+    "displayName": "Contacto MediaLuna",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "whatsApp": {
+      "type": "string"
+    }
+  }
+}

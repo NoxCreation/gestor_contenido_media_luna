@@ -15,9 +15,9 @@
     "cambio_usd": {
       "type": "decimal"
     },
-    "tienda": {
+    "tiendas": {
       "type": "relation",
-      "relation": "manyToOne",
+      "relation": "manyToMany",
       "target": "api::shop.shop",
       "inversedBy": "cambio_moneda_tiendas"
     },
