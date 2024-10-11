@@ -55,31 +55,31 @@
     },
     "whatsapp_contact": {
       "type": "string",
-      "unique": true
+      "unique": false
     },
     "telegram_contact": {
       "type": "string",
-      "unique": true
+      "unique": false
     },
     "instagram_contact": {
       "type": "string",
-      "unique": true
+      "unique": false
     },
     "x_contact": {
       "type": "string",
-      "unique": true
+      "unique": false
     },
     "phone_contact": {
       "type": "string",
-      "unique": true
+      "unique": false
     },
     "site_contact": {
       "type": "string",
-      "unique": true
+      "unique": false
     },
     "email_contact": {
       "type": "string",
-      "unique": true
+      "unique": false
     },
     "productos": {
       "type": "relation",
@@ -120,9 +120,9 @@
     },
     "cambio_moneda_tiendas": {
       "type": "relation",
-      "relation": "oneToMany",
+      "relation": "manyToMany",
       "target": "api::cambio-moneda-tienda.cambio-moneda-tienda",
-      "mappedBy": "tienda"
+      "mappedBy": "tiendas"
     }
   }
 }
