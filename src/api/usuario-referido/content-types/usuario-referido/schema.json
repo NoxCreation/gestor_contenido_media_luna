@@ -1,0 +1,25 @@
+{
+  "kind": "collectionType",
+  "collectionName": "usuario_referidos",
+  "info": {
+    "singularName": "usuario-referido",
+    "pluralName": "usuario-referidos",
+    "displayName": "UsuarioReferido"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "usuario": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "referidos": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "plugin::users-permissions.user"
+    }
+  }
+}
