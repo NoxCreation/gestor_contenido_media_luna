@@ -17,7 +17,7 @@ export default () => ({
     enabled: process.env.NODE_ENV === "production" ? false : true,
     config: {
       // endpoint: "https://tunneled-strapi.com/graphql", // OPTIONAL - endpoint has to be accessible from the browser
-    },
+    }, 
   },
   email: {
     config: {

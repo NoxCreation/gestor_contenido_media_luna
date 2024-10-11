@@ -24,6 +24,9 @@
     },
     "precio": {
       "type": "decimal"
+    },
+    "descripcion": {
+      "type": "text"
     }
   }
 }

@@ -20,6 +20,14 @@
       "relation": "manyToMany",
       "target": "api::stock.stock",
       "mappedBy": "clasificacion_productos"
+    },
+    "descripcion": {
+      "type": "text"
+    },
+    "tienda": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::shop.shop"
     }
   }
 }

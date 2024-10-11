@@ -4,7 +4,8 @@
   "info": {
     "singularName": "mensajeria",
     "pluralName": "mensajerias",
-    "displayName": "Mensajeria"
+    "displayName": "Mensajeria",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -40,6 +41,11 @@
       "relation": "manyToOne",
       "target": "api::shop.shop",
       "inversedBy": "mensajerias"
+    },
+    "cambio_moneda_tienda": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::cambio-moneda-tienda.cambio-moneda-tienda"
     }
   }
 }
