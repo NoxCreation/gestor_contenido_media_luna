@@ -28,6 +28,9 @@
     "fecha_expiracion": {
       "type": "datetime",
       "required": true
+    },
+    "plan": {
+      "type": "string"
     }
   }
 }

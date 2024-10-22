@@ -1125,6 +1125,7 @@ export interface ApiInvoiceInvoice extends Schema.CollectionType {
       'plugin::users-permissions.user'
     >;
     fecha_expiracion: Attribute.DateTime & Attribute.Required;
+    plan: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
