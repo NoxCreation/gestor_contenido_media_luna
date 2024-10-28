@@ -14,6 +14,27 @@
   "attributes": {
     "whatsApp": {
       "type": "string"
+    },
+    "email": {
+      "type": "email"
+    },
+    "instagram": {
+      "type": "string"
+    },
+    "facebook": {
+      "type": "string"
+    },
+    "x": {
+      "type": "string"
+    },
+    "linkedin": {
+      "type": "string"
+    },
+    "direccion": {
+      "type": "text"
+    },
+    "ubicacion_url": {
+      "type": "text"
     }
   }
 }

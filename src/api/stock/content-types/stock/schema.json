@@ -111,6 +111,13 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::cambio-moneda-tienda.cambio-moneda-tienda"
+    },
+    "slug": {
+      "type": "customField",
+      "options": {
+        "uuid-format": "^[a-za-z0-9]{8}$"
+      },
+      "customField": "plugin::strapi-advanced-uuid.uuid"
     }
   }
 }

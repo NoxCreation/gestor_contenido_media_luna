@@ -26,6 +26,13 @@
       "relation": "manyToOne",
       "target": "api::country.country",
       "inversedBy": "estados"
+    },
+    "slug": {
+      "type": "customField",
+      "options": {
+        "uuid-format": "^[a-za-z0-9]{8}$"
+      },
+      "customField": "plugin::strapi-advanced-uuid.uuid"
     }
   }
 }

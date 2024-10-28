@@ -20,6 +20,13 @@
       "relation": "manyToOne",
       "target": "api::state.state",
       "inversedBy": "localidads"
+    },
+    "slug": {
+      "type": "customField",
+      "options": {
+        "uuid-format": "^[a-za-z0-9]{8}$"
+      },
+      "customField": "plugin::strapi-advanced-uuid.uuid"
     }
   }
 }

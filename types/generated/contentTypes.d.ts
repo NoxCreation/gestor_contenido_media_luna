@@ -976,6 +976,13 @@ export interface ApiContactoMediaLunaContactoMediaLuna
   };
   attributes: {
     whatsApp: Attribute.String;
+    email: Attribute.Email;
+    instagram: Attribute.String;
+    facebook: Attribute.String;
+    x: Attribute.String;
+    linkedin: Attribute.String;
+    direccion: Attribute.Text;
+    ubicacion_url: Attribute.Text;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1012,6 +1019,19 @@ export interface ApiCountryCountry extends Schema.CollectionType {
       'oneToMany',
       'api::state.state'
     >;
+    slug: Attribute.UID<
+      undefined,
+      undefined,
+      {
+        'uuid-format': '^[a-za-z0-9]{8}$';
+      }
+    > &
+      Attribute.CustomField<
+        'plugin::strapi-advanced-uuid.uuid',
+        {
+          'uuid-format': '^[a-za-z0-9]{8}$';
+        }
+      >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1166,6 +1186,19 @@ export interface ApiLocalityLocality extends Schema.CollectionType {
       'manyToOne',
       'api::state.state'
     >;
+    slug: Attribute.UID<
+      undefined,
+      undefined,
+      {
+        'uuid-format': '^[a-za-z0-9]{8}$';
+      }
+    > &
+      Attribute.CustomField<
+        'plugin::strapi-advanced-uuid.uuid',
+        {
+          'uuid-format': '^[a-za-z0-9]{8}$';
+        }
+      >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1602,6 +1635,19 @@ export interface ApiStateState extends Schema.CollectionType {
       'manyToOne',
       'api::country.country'
     >;
+    slug: Attribute.UID<
+      undefined,
+      undefined,
+      {
+        'uuid-format': '^[a-za-z0-9]{8}$';
+      }
+    > &
+      Attribute.CustomField<
+        'plugin::strapi-advanced-uuid.uuid',
+        {
+          'uuid-format': '^[a-za-z0-9]{8}$';
+        }
+      >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1686,6 +1732,19 @@ export interface ApiStockStock extends Schema.CollectionType {
       'oneToMany',
       'api::cambio-moneda-tienda.cambio-moneda-tienda'
     >;
+    slug: Attribute.UID<
+      undefined,
+      undefined,
+      {
+        'uuid-format': '^[a-za-z0-9]{8}$';
+      }
+    > &
+      Attribute.CustomField<
+        'plugin::strapi-advanced-uuid.uuid',
+        {
+          'uuid-format': '^[a-za-z0-9]{8}$';
+        }
+      >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
