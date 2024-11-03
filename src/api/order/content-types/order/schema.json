@@ -65,13 +65,13 @@
       "type": "string"
     },
     "precio_mensajeria": {
-      "type": "decimal"
+      "type": "float"
     },
     "precio_total": {
-      "type": "decimal"
+      "type": "float"
     },
     "precio_productos": {
-      "type": "decimal"
+      "type": "float"
     },
     "moneda": {
       "type": "string"

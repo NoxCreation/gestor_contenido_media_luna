@@ -1138,7 +1138,7 @@ export interface ApiInvoiceInvoice extends Schema.CollectionType {
   };
   attributes: {
     fecha_pago: Attribute.DateTime & Attribute.Required;
-    pagado: Attribute.Decimal & Attribute.Required;
+    pagado: Attribute.Float & Attribute.Required;
     usuario: Attribute.Relation<
       'api::invoice.invoice',
       'oneToOne',
@@ -1246,7 +1246,7 @@ export interface ApiMensajeriaMensajeria extends Schema.CollectionType {
       'api::locality.locality'
     >;
     descripcion: Attribute.Text;
-    precio: Attribute.Decimal;
+    precio: Attribute.Float;
     tienda: Attribute.Relation<
       'api::mensajeria.mensajeria',
       'manyToOne',
@@ -1397,9 +1397,9 @@ export interface ApiOrderOrder extends Schema.CollectionType {
     numero_orden: Attribute.String;
     direccion: Attribute.String;
     telefono: Attribute.String;
-    precio_mensajeria: Attribute.Decimal;
-    precio_total: Attribute.Decimal;
-    precio_productos: Attribute.Decimal;
+    precio_mensajeria: Attribute.Float;
+    precio_total: Attribute.Float;
+    precio_productos: Attribute.Float;
     moneda: Attribute.String;
     user_id: Attribute.Relation<
       'api::order.order',
@@ -1680,7 +1680,7 @@ export interface ApiStockStock extends Schema.CollectionType {
   attributes: {
     nombre: Attribute.String & Attribute.Required;
     foto1: Attribute.Media & Attribute.Required;
-    precio: Attribute.Decimal & Attribute.Required;
+    precio: Attribute.Float & Attribute.Required;
     clasificacion_productos: Attribute.Relation<
       'api::stock.stock',
       'manyToMany',
