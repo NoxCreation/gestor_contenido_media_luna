@@ -34,7 +34,7 @@
       "type": "text"
     },
     "precio": {
-      "type": "decimal"
+      "type": "float"
     },
     "tienda": {
       "type": "relation",

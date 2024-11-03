@@ -17,7 +17,7 @@
       "required": true
     },
     "pagado": {
-      "type": "decimal",
+      "type": "float",
       "required": true
     },
     "usuario": {
