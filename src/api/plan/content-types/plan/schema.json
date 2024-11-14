@@ -27,6 +27,11 @@
     },
     "descripcion": {
       "type": "text"
+    },
+    "moneda": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::moneda.moneda"
     }
   }
 }
