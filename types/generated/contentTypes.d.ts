@@ -1444,6 +1444,11 @@ export interface ApiPlanPlan extends Schema.CollectionType {
     >;
     precio: Attribute.Decimal;
     descripcion: Attribute.Text;
+    moneda: Attribute.Relation<
+      'api::plan.plan',
+      'oneToOne',
+      'api::moneda.moneda'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
