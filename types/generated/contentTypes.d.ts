@@ -1437,17 +1437,17 @@ export interface ApiPlanPlan extends Schema.CollectionType {
   };
   attributes: {
     nombre: Attribute.String & Attribute.Required;
-    opciones: Attribute.Relation<
-      'api::plan.plan',
-      'oneToMany',
-      'api::plan-option.plan-option'
-    >;
     precio: Attribute.Decimal;
     descripcion: Attribute.Text;
     moneda: Attribute.Relation<
       'api::plan.plan',
       'oneToOne',
       'api::moneda.moneda'
+    >;
+    opciones: Attribute.Relation<
+      'api::plan.plan',
+      'manyToMany',
+      'api::plan-option.plan-option'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -1473,9 +1473,9 @@ export interface ApiPlanOptionPlanOption extends Schema.CollectionType {
   attributes: {
     nombre: Attribute.String & Attribute.Required;
     icono: Attribute.Media & Attribute.Required;
-    plane: Attribute.Relation<
+    planes: Attribute.Relation<
       'api::plan-option.plan-option',
-      'manyToOne',
+      'manyToMany',
       'api::plan.plan'
     >;
     descripcion: Attribute.String;
