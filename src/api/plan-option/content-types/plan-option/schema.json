@@ -24,9 +24,9 @@
         "images"
       ]
     },
-    "plane": {
+    "planes": {
       "type": "relation",
-      "relation": "manyToOne",
+      "relation": "manyToMany",
       "target": "api::plan.plan",
       "inversedBy": "opciones"
     },

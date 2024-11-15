@@ -16,12 +16,6 @@
       "type": "string",
       "required": true
     },
-    "opciones": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::plan-option.plan-option",
-      "mappedBy": "plane"
-    },
     "precio": {
       "type": "decimal"
     },
@@ -32,6 +26,12 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::moneda.moneda"
+    },
+    "opciones": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::plan-option.plan-option",
+      "mappedBy": "planes"
     }
   }
 }
