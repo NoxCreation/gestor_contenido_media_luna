@@ -123,6 +123,9 @@
       "relation": "manyToMany",
       "target": "api::cambio-moneda-tienda.cambio-moneda-tienda",
       "mappedBy": "tiendas"
+    },
+    "ubicacion": {
+      "type": "text"
     }
   }
 }

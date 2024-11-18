@@ -1607,6 +1607,7 @@ export interface ApiShopShop extends Schema.CollectionType {
       'manyToMany',
       'api::cambio-moneda-tienda.cambio-moneda-tienda'
     >;
+    ubicacion: Attribute.Text;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
