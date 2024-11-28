@@ -1685,7 +1685,7 @@ export interface ApiStockStock extends Schema.CollectionType {
   };
   attributes: {
     nombre: Attribute.String & Attribute.Required;
-    foto1: Attribute.Media & Attribute.Required;
+    foto1: Attribute.Media;
     precio: Attribute.Float & Attribute.Required;
     clasificacion_productos: Attribute.Relation<
       'api::stock.stock',
@@ -1697,9 +1697,9 @@ export interface ApiStockStock extends Schema.CollectionType {
       'oneToMany',
       'api::comentarie.comentarie'
     >;
-    foto2: Attribute.Media & Attribute.Required;
-    foto3: Attribute.Media & Attribute.Required;
-    foto4: Attribute.Media & Attribute.Required;
+    foto2: Attribute.Media;
+    foto3: Attribute.Media;
+    foto4: Attribute.Media;
     cantidad: Attribute.Integer;
     descripcion: Attribute.RichText &
       Attribute.Required &
