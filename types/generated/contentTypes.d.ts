@@ -1520,7 +1520,11 @@ export interface ApiRetirarGananciasReferidoRetirarGananciasReferido
       'oneToOne',
       'plugin::users-permissions.user'
     >;
-    acreditado: Attribute.Boolean & Attribute.DefaultTo<false>;
+    id_transaccion: Attribute.String;
+    acreditado: Attribute.Enumeration<
+      ['cancelado', 'acreditado', 'pendiente']
+    > &
+      Attribute.DefaultTo<'pendiente'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
