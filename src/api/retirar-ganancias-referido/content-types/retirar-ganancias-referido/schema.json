@@ -26,9 +26,17 @@
       "relation": "oneToOne",
       "target": "plugin::users-permissions.user"
     },
+    "id_transaccion": {
+      "type": "string"
+    },
     "acreditado": {
-      "type": "boolean",
-      "default": false
+      "type": "enumeration",
+      "enum": [
+        "cancelado",
+        "acreditado",
+        "pendiente"
+      ],
+      "default": "pendiente"
     }
   }
 }
