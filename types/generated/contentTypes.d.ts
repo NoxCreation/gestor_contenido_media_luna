@@ -1825,6 +1825,7 @@ export interface ApiUsuarioReferidoUsuarioReferido
     singularName: 'usuario-referido';
     pluralName: 'usuario-referidos';
     displayName: 'UsuarioReferido';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -1840,6 +1841,7 @@ export interface ApiUsuarioReferidoUsuarioReferido
       'oneToMany',
       'plugin::users-permissions.user'
     >;
+    ganancias: Attribute.Float;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

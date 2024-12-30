@@ -4,7 +4,8 @@
   "info": {
     "singularName": "usuario-referido",
     "pluralName": "usuario-referidos",
-    "displayName": "UsuarioReferido"
+    "displayName": "UsuarioReferido",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -20,6 +21,9 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "plugin::users-permissions.user"
+    },
+    "ganancias": {
+      "type": "float"
     }
   }
 }
