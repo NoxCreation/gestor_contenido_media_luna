@@ -60,7 +60,7 @@ module.exports = {
       if (!withdrawals.length) return;
 
       // Process each withdrawal
-      await processWithdrawals(withdrawals, null, true);
+      await processWithdrawals(withdrawals, "pendiente", true);
 
       console.log("afterCreate completed successfully");
     } catch (error) {
@@ -79,6 +79,8 @@ module.exports = {
 async function findWithdrawals(
   filters: Record<string, unknown>
 ): Promise<Withdrawal[]> {
+  console.log("filters", filters);
+
   const res = await strapi.entityService.findMany(
     "api::retirar-ganancias-referido.retirar-ganancias-referido",
     {
@@ -87,6 +89,8 @@ async function findWithdrawals(
       fields: ["cantidad_retiro", "acreditado"],
     }
   );
+  console.log("res", res);
+
   const withdrawals: Withdrawal[] = res.map((withdrawal) => ({
     id: withdrawal.id.toString(),
     user: {
@@ -96,6 +100,8 @@ async function findWithdrawals(
     cantidad_retiro: withdrawal.cantidad_retiro,
     acreditado: withdrawal.acreditado,
   }));
+  console.log("withdrawals", withdrawals);
+
   return withdrawals;
 }
 
@@ -108,7 +114,7 @@ async function findUserRefs(userId: string): Promise<UserReferral[]> {
   return strapi.entityService.findMany(
     "api::usuario-referido.usuario-referido",
     {
-      filters: { id: { $eq: userId } },
+      filters: { usuario: { id: { $eq: userId } } },
       fields: ["ganancias", "id"],
     }
   );
@@ -128,12 +134,17 @@ async function processWithdrawals(
   await Promise.all(
     withdrawals.map(async (withdrawal) => {
       const { user, cantidad_retiro, acreditado } = withdrawal;
+      console.log("user", user);
+
+      console.log(condition && acreditado != condition);
 
       // Skip processing if condition is specified and not met
-      if (condition && acreditado !== condition) return;
+      if (condition && acreditado != condition) return;
 
       const userRefs = await findUserRefs(user.id);
+      console.log(userRefs);
 
+      cantidad_retiro;
       await Promise.all(
         userRefs.map((userRef) =>
           strapi.entityService.update(
