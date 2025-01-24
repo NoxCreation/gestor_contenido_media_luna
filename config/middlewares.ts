@@ -5,12 +5,23 @@ export default [
     config: {
       contentSecurityPolicy: {
         directives: {
-          "frame-src": [ "http://127.0.0.1:*", "self", "sandbox.embed.apollographql.com" ],
+          "frame-src": [
+            "http://127.0.0.1:*",
+            "self",
+            "sandbox.embed.apollographql.com",
+          ],
         },
       },
     },
   },
-  "strapi::cors",
+  {
+    name: "strapi::cors",
+    config: {
+      enable: true,
+      origin: process.env.CORS_ORIGIN,
+      credentials: true,
+    },
+  },
   "strapi::poweredBy",
   "strapi::logger",
   "strapi::query",
